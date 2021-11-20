@@ -1,5 +1,19 @@
 # CutyMals is cute animals on blockchain!
-## Cardano Web API
+## Public Cardano Web API
+Retrieve cardano blockchain data in a flexible ODATA Syntax. It allows you to get the data you need for your application with no hassle and maximum flexibility.Start building your application today, don't deal with infrastructure. We prepared examples queries for you. Example Queries
+
+The Api allows you to:
+- `$filter` results based on predicates like greater than, equals, ...
+- `$count` the number of results for your query
+- `$select` the return values you need,
+- `$orderby` values within your request
+- `$top` limit the amount of returned results
+- `$skip` navigate through the returned results
+- `$expand` navigation properties of related tables
+Fast as Lightning directly executed on the database. 
+
+[Go To Public Cardano Web API](https://cutymals.com/swagger/index.html)
+
 ## OData
 Here are the various parameters that can be used together with API URI in request.
 
