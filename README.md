@@ -5,7 +5,7 @@
   - [What is OData ?](#what-is-odata-)
   - [NFT Use-Cases](#nft-use-cases)
     - [Count all SpaceBudz ever minted](#count-all-spacebudz-ever-minted)
-    - [Count all SpaceBudz in existence](#count-all-spacebudz-in-existence)
+    - [Count all Transactions where SpaceBudz were involved](#count-all-transactions-where-spacebudz-were-involved)
   - [API Tokens](#api-tokens)
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
@@ -51,18 +51,75 @@ Here are the examples of some the most used parameter with web API URI.
 ```
 https://cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
 ```
+Result
+```
+@odata.context	"https://5.9.156.30/odata/$metadata#MultiAssetTransactionsMint"
+@odata.count	10174
+value	
+0	
+Id	1285
+Policy	"1ea/BQA3jU8NpOjd5r7Ox2Ic2Mv1y7m4cBPUzA=="
+PolicyInHex	"d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc"
+Name	"U3BhY2VCdWQ2MjA2"
+NameInHex	"537061636542756436323036"
+NameInUtf8	"SpaceBud6206"
+Quantity	1
+TxId	5365308
+1	{…}
+2	{…}
+3	{…}
+4	{…}
+5	{…}
+6	{…}
+7	{…}
+8	{…}
+9	{…}
+@odata.nextLink	"https://5.9.156.30/odata/MultiAssetTransactionsMint?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-1296"
+```
 You will see that the count is greater than 10000 pcs. The reason for that is that the MultiAssetTransactionsMint API shows you all mints that took place. On Cardano you can mint and burn tokens, but each is a mint event.
 If you mint 150 tokens, then burn 50 tokens (each of those in one transaction) you will then see 200 mint transaction.
 
 If you instead want to know the existing circulation read the next.
 
-### Count all SpaceBudz in existence
-[-> Result]()
+### Count all Transactions where SpaceBudz were involved
+[-> Result](https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
 ```
-
+https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
 ```
+Result
+```
+@odata.context	"https://5.9.156.30/odata/$metadata#MultiAssetTransactionsOut"
+@odata.count	998869
+value	
+0	{…}
+1	{…}
+2	{…}
+3	{…}
+4	{…}
+5	{…}
+6	{…}
+7	{…}
+8	{…}
+9	{…}
+@odata.nextLink	"https://5.9.156.30/odata/MultiAssetTransactionsOut?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-44276"
+```
+We get the data returned together with the @odata.count which is the amount of unique elements for our query. If we ar just interested in the number, we can adjust the query with the parameter $top=0 to return no values.
 
-to be added
+[-> Result](https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true)
+```
+https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true
+```
+Result
+```
+@odata.context	"https://5.9.156.30/odata/$metadata#MultiAssetTransactionsOut"
+@odata.count	998869
+value	[]
+```
+We spared us some traffic and just got the count which we now can use to do what we intended to do.
+
+### Count all SpaceBudz in existence (amount of tokens)
+To count all in existence we have to count the amount of spendable SpaceBudz on the Blockchain.
+ to be done
 
 ## API Tokens 
 ### API Key Headers and API Key Parameter
