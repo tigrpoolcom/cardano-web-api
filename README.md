@@ -3,9 +3,12 @@
 - [Cardano Public API brought you by CutyMals.com](#cardano-public-api-brought-you-by-cutymalscom)
   - [What can i do with it ?](#what-can-i-do-with-it-)
   - [What is OData ?](#what-is-odata-)
+  - [Trasaction Use-Cases](#trasaction-use-cases)
+    - [How to identify sender of transaction?](#how-to-identify-sender-of-transaction)
   - [NFT Use-Cases](#nft-use-cases)
     - [Count all SpaceBudz ever minted](#count-all-spacebudz-ever-minted)
     - [Count all Transactions where SpaceBudz were involved](#count-all-transactions-where-spacebudz-were-involved)
+    - [Count all SpaceBudz in existence (amount of tokens)](#count-all-spacebudz-in-existence-amount-of-tokens)
   - [API Tokens](#api-tokens)
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
@@ -44,6 +47,80 @@ Here are the examples of some the most used parameter with web API URI.
     http://localhost/api/Employees?$select=EmployeeName, Salary
     http://localhost/api/Employees?$skip=10
     http://localhost/api/Employees?$top=5
+
+## Trasaction Use-Cases
+### How to identify sender of transaction?
+Assuming you have the following UTXO view and want to know which address did sent that amount.
+|TxHash|TxIx|Amount|
+|------|----|------|
+|253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055|0|17622402 lovelace|
+
+To identify the sender we take a look at the TransactionOut APIs. Every Output once in a time will be a input. While the input table on the cardano blockchain is just a link-table with ids, the output table contains also substantial information.
+
+[-> Result](https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals)
+```
+https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals
+```
+Result (shortened)
+```
+  "@odata.context": "https://5.9.156.30/odata/$metadata#TransactionsOut",
+  "value": [
+    {
+      "Id": 10686877,
+      "TxId": 4470038,
+      "Index": 0,
+      "Address": "addr1q95cftm4jhf6gm4exl7f5fsk7n0djsldfa8wy7djrlj2lj6l2eqqxwvrhpmrdvkg0sfa73uywedv34ap6f3r77egfppsxqtuyk",
+      ...
+    },
+    {
+      "Id": 10691409,
+      "TxId": 4471782,
+      ...
+  ]
+```
+We now got returned two Transactions as both were used as input for the Transactions [Verify this on Cardanoscan](https://cardanoscan.io/transaction/253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055). 
+
+As we are just interested in the Address of the sender we will use `$select=Address` to just get returned the Address.
+
+[-> Result](https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address)
+```
+https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address
+```
+Result
+```
+  "@odata.context": "https://5.9.156.30/odata/$metadata#TransactionsOut(Address)",
+  "value": [
+    {
+      "Address": "addr1q95cftm4jhf6gm4exl7f5fsk7n0djsldfa8wy7djrlj2lj6l2eqqxwvrhpmrdvkg0sfa73uywedv34ap6f3r77egfppsxqtuyk"
+    },
+    {
+      "Address": "addr1q95cftm4jhf6gm4exl7f5fsk7n0djsldfa8wy7djrlj2lj6l2eqqxwvrhpmrdvkg0sfa73uywedv34ap6f3r77egfppsxqtuyk"
+    }
+  ]
+```
+
+This output is now much cleaner and more suitable for out use case.
+
+If a Transaction is just from one wallet (very likely to happen on every manual tx) we can assume that the input addresses always belong to the same wallet. Hence we can optimize the query even further by just taking the first result.
+
+To do that we will optimize the query and add a `$top=1`, so we just get returned the ffirst result.
+
+[-> Result](https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address)
+```
+https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address
+```
+Result
+```
+ "@odata.context": "https://5.9.156.30/odata/$metadata#TransactionsOut(Address)",
+  "value": [
+    {
+      "Address": "addr1q95cftm4jhf6gm4exl7f5fsk7n0djsldfa8wy7djrlj2lj6l2eqqxwvrhpmrdvkg0sfa73uywedv34ap6f3r77egfppsxqtuyk"
+    }
+  ]
+```
+
+With that query it's now super easy to just consume that in javascript and to react to that. Without having to build a full domain model of the TxOut. Use the query which suits best to your use case 👍.
+
 
 ## NFT Use-Cases
 ### Count all SpaceBudz ever minted
