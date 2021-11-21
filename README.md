@@ -9,6 +9,7 @@
     - [Count all SpaceBudz ever minted](#count-all-spacebudz-ever-minted)
     - [Count all Transactions where SpaceBudz were involved](#count-all-transactions-where-spacebudz-were-involved)
     - [Count all SpaceBudz in existence (amount of tokens)](#count-all-spacebudz-in-existence-amount-of-tokens)
+    - [Contains Search of NFT metadata (Transaction Metadata)](#contains-search-of-nft-metadata-transaction-metadata)
   - [API Tokens](#api-tokens)
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
@@ -197,6 +198,31 @@ We spared us some traffic and just got the count which we now can use to do what
 ### Count all SpaceBudz in existence (amount of tokens)
 To count all in existence we have to count the amount of spendable SpaceBudz on the Blockchain.
  to be done
+
+### Contains Search of NFT metadata (Transaction Metadata)
+Example NFT SpaceBud6206
+```
+"{\"d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc\": {\"SpaceBud6206\": {\"name\": \"SpaceBud #6206\", \"type\": \"Alien\", \"image\": \"ipfs://QmXjMxYcpeGAfSogZmkw5iPehRt55WaWQmC7ti4LCnL9Do\", \"traits\": [\"Chestplate\", \"Covered Helmet\", \"Eye Patch\", \"Lightsaber\", \"Wool Boots\"], \"arweaveId\": \"JK8ytLq7I25qTbkhBNhQGg-X8QSo_6iGA1tfLN2WAkQ\"}}}"
+```
+We offer you the ability to search the JSON string within the database with a contains search. That means whatever you put into the `searchInMetadata=` parameter will be searched within the Json.
+
+[-> Result](https://cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals)
+```
+https://cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals
+```
+Result 
+```
+@odata.context	"https://5.9.156.30/odata/$metadata#TransactionsMetadata"
+value	
+0	
+Id	67784
+Key	721
+Json	"{\"d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc\": {\"SpaceBud6206\": {\"name\": \"SpaceBud #6206\", \"type\": \"Alien\", \"image\": \"ipfs://QmXjMxYcpeGAfSogZmkw5iPehRt55WaWQmC7ti4LCnL9Do\", \"traits\": [\"Chestplate\", \"Covered Helmet\", \"Eye Patch\", \"Lightsaber\", \"Wool Boots\"], \"arweaveId\": \"JK8ytLq7I25qTbkhBNhQGg-X8QSo_6iGA1tfLN2WAkQ\"}}}"
+Bytes	"oRkC0aF4OGQ1ZTZiZjA1MDAzNzhkNGYwZGE0ZThkZGU2YmVjZWM3NjIxY2Q4Y2JmNWNiYjliODcwMTNkNGNjoWxTcGFjZUJ1ZDYyMDalaWFyd2VhdmVJZHgrSks4eXRMcTdJMjVxVGJraEJOaFFHZy1YOFFTb182aUdBMXRmTE4yV0FrUWVpbWFnZXg1aXBmczovL1FtWGpNeFljcGVHQWZTb2dabWt3NWlQZWhSdDU1V2FXUW1DN3RpNExDbkw5RG9kbmFtZW5TcGFjZUJ1ZCAjNjIwNmZ0cmFpdHOFakNoZXN0cGxhdGVuQ292ZXJlZCBIZWxtZXRpRXllIFBhdGNoakxpZ2h0c2FiZXJqV29vbCBCb290c2R0eXBlZUFsaWVu"
+TxId	5365308
+1	{…}
+2	{…}
+```
 
 ## API Tokens 
 ### API Key Headers and API Key Parameter
