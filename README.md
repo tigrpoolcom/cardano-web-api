@@ -26,7 +26,15 @@ The Api allows you to:
 - `$expand` navigation properties of related tables
 Fast as Lightning directly executed on the database. 
 
-[Go To Public Cardano Web API](https://cutymals.com/swagger/index.html)
+Our API is documented in Swagger:
+- [Swagger API Documentation](https://cutymals.com/swagger/index.html)
+
+If you're new to swagger you can find an how to here:
+- [Swagger API How To](https://www.youtube.com/watch?v=7MS1Z_1c5CU&list=PLnBvgoOXZNCOiV54qjDOPA9R7DIDazxBA&index=1)
+
+With a click on the `Authorize` button on the Swagger UI
+Enter in the field `Value:` the public api key `ILoveCutyMals`. 
+Then click on Authorize. Swagger then automatically sends the `X-API-KEY=ILoveCutyMals` header in every request you try out. That makes it very easy to understand what you can do with the API.
 
 ## What is OData ?
 Here are the various parameters that can be used together with API URI in request.
