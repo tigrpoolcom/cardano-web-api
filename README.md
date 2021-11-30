@@ -261,8 +261,9 @@ The API-Key will be bound to CutyMal tokens on the Cardano blockchain.
 
 ## Known Problems and Issues
 ### When i have testnet swagger and mainnet swagger open in the browser the request seems to go to the wrong server ?
-It seems that Swagger cant distinguish between the API of testnet.cutymals.com and mainnet.cutymals.com and saves the target machine (to which it will sent the request to), in a local cache.
-This leads to the issue that a request in the mainnet Swagger can go to the testnet APi, because the cache always holds the last API API you have opened.
+It seems that Swagger cant distinguish between the API of `testnet.cutymals.com` and `mainnet.cutymals.com`. It uses one cache for both Swagger pages.
+
+This leads to the issue that a request in the mainnet Swagger can go to the testnet APi (or other way around),because the cache always holds the target server of the last API you have opened.
 As this is just a caching problem from Swagger, you will only encounter this in local tests.
 You can solve this by pressing `STRG+F5` in the current tab so that Swagger overwrites the target server in your browser cache and the request goes to the right server.
 
