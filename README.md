@@ -67,7 +67,7 @@ https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed7
 ```
 Result (shortened)
 ```
-  "@odata.context": "https://5.9.156.30/odata/$metadata#TransactionsOut",
+  "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#TransactionsOut",
   "value": [
     {
       "Id": 10686877,
@@ -92,7 +92,7 @@ https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed7
 ```
 Result
 ```
-  "@odata.context": "https://5.9.156.30/odata/$metadata#TransactionsOut(Address)",
+  "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#TransactionsOut(Address)",
   "value": [
     {
       "Address": "addr1q95cftm4jhf6gm4exl7f5fsk7n0djsldfa8wy7djrlj2lj6l2eqqxwvrhpmrdvkg0sfa73uywedv34ap6f3r77egfppsxqtuyk"
@@ -115,7 +115,7 @@ https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed7
 ```
 Result
 ```
- "@odata.context": "https://5.9.156.30/odata/$metadata#TransactionsOut(Address)",
+ "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#TransactionsOut(Address)",
   "value": [
     {
       "Address": "addr1q95cftm4jhf6gm4exl7f5fsk7n0djsldfa8wy7djrlj2lj6l2eqqxwvrhpmrdvkg0sfa73uywedv34ap6f3r77egfppsxqtuyk"
@@ -134,7 +134,7 @@ https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf
 ```
 Result
 ```
-@odata.context	"https://5.9.156.30/odata/$metadata#MultiAssetTransactionsMint"
+@odata.context	"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsMint"
 @odata.count	10174
 value	
 0	
@@ -155,7 +155,7 @@ TxId	5365308
 7	{…}
 8	{…}
 9	{…}
-@odata.nextLink	"https://5.9.156.30/odata/MultiAssetTransactionsMint?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-1296"
+@odata.nextLink	"https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-1296"
 ```
 You will see that the count is greater than 10000 pcs. The reason for that is that the MultiAssetTransactionsMint API shows you all mints that took place. On Cardano you can mint and burn tokens, but each is a mint event.
 If you mint 150 tokens, then burn 50 tokens (each of those in one transaction) you will then see 200 mint transaction.
@@ -169,7 +169,7 @@ https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0
 ```
 Result
 ```
-@odata.context	"https://5.9.156.30/odata/$metadata#MultiAssetTransactionsOut"
+@odata.context	"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut"
 @odata.count	998869
 value	
 0	{…}
@@ -182,7 +182,7 @@ value
 7	{…}
 8	{…}
 9	{…}
-@odata.nextLink	"https://5.9.156.30/odata/MultiAssetTransactionsOut?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-44276"
+@odata.nextLink	"https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-44276"
 ```
 We get the data returned together with the @odata.count which is the amount of unique elements for our query. If we ar just interested in the number, we can adjust the query with the parameter $top=0 to return no values.
 
@@ -192,7 +192,7 @@ https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0
 ```
 Result
 ```
-@odata.context	"https://5.9.156.30/odata/$metadata#MultiAssetTransactionsOut"
+@odata.context	"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut"
 @odata.count	998869
 value	[]
 ```
@@ -215,7 +215,7 @@ https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBu
 ```
 Result 
 ```
-@odata.context	"https://5.9.156.30/odata/$metadata#TransactionsMetadata"
+@odata.context	"https://mainnet.cutymals.com/odata/$metadata#TransactionsMetadata"
 value	
 0	
 Id	67784
