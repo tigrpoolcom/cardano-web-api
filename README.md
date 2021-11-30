@@ -274,6 +274,8 @@ https://testnet.cutymals.com/swagger/index.html
 Our `mainnet` API is here:
 https://mainnet.cutymals.com/swagger/index.html
 
+<b>Note:</b> We mainly observed that in Firefox, while Edge and Chrome did not have this behavior.
+
 ### I am receiving old data or no results ?
 Due to maintenance or other unforseen issues it might happen that the sync between the cardano relay node and the network is not 100%.
 To give you the possibility to react to such event we offer the `/api/CardanoSyncStatus` route. With that you can check if the nodes are synced 100%. The syncedTimestamp is in UTC.
