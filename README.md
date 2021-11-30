@@ -61,9 +61,9 @@ Assuming you have the following UTXO view and want to know which address did sen
 
 To identify the sender we take a look at the TransactionOut APIs. Every Output once in a time will be a input. While the input table on the cardano blockchain is just a link-table with ids, the output table contains also substantial information.
 
-[-> Result](https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals)
+[-> Result](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals)
 ```
-https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals
+https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals
 ```
 Result (shortened)
 ```
@@ -86,9 +86,9 @@ We now got returned two Transactions as both were used as input for the Transact
 
 As we are just interested in the Address of the sender we will use `$select=Address` to just get returned the Address.
 
-[-> Result](https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address)
+[-> Result](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address)
 ```
-https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address
+https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address
 ```
 Result
 ```
@@ -109,9 +109,9 @@ If a Transaction is just from one wallet (very likely to happen on every manual 
 
 To do that we will optimize the query and add a `$top=1`, so we just get returned the ffirst result.
 
-[-> Result](https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address)
+[-> Result](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address)
 ```
-https://cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address
+https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address
 ```
 Result
 ```
@@ -128,9 +128,9 @@ With that query it's now super easy to just consume that in javascript and to re
 
 ## NFT Use-Cases
 ### Count all SpaceBudz ever minted
-[-> Result](https://cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
+[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
 ```
-https://cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
+https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
 ```
 Result
 ```
@@ -163,9 +163,9 @@ If you mint 150 tokens, then burn 50 tokens (each of those in one transaction) y
 If you instead want to know the existing circulation read the next.
 
 ### Count all Transactions where SpaceBudz were involved
-[-> Result](https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
+[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
 ```
-https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
+https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
 ```
 Result
 ```
@@ -186,9 +186,9 @@ value
 ```
 We get the data returned together with the @odata.count which is the amount of unique elements for our query. If we ar just interested in the number, we can adjust the query with the parameter $top=0 to return no values.
 
-[-> Result](https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true)
+[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true)
 ```
-https://cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true
+https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true
 ```
 Result
 ```
@@ -209,9 +209,9 @@ Example NFT SpaceBud6206
 ```
 We offer you the ability to search the JSON string within the database with a contains search. That means whatever you put into the `searchInMetadata=` parameter will be searched within the Json.
 
-[-> Result](https://cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals)
+[-> Result](https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals)
 ```
-https://cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals
+https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals
 ```
 Result 
 ```
@@ -232,12 +232,12 @@ TxId	5365308
 To request data from the API you have to use the X-API-KEY parameter.
 Our API Allows you to either set it as authentication header:
 ```
-curl -X 'GET' \ 'https://cutymals.com/api/CardanoSyncStatus' \
+curl -X 'GET' \ 'https://mainnet.cutymals.com/api/CardanoSyncStatus' \
   -H 'X-API-KEY: ILoveCutyMals'
 ```
 or set it as a GET parameter:
 ```
-curl -X 'GET' \  'https://cutymals.com/api/CardanoSyncStatus?X-API-KEY=ILoveCutyMals' \
+curl -X 'GET' \  'https://mainnet.cutymals.com/api/CardanoSyncStatus?X-API-KEY=ILoveCutyMals' \
 ```
 We allow both for the sake of convenience and better testing. As long as you try out the API feel free to use the GET Parameter.
 
