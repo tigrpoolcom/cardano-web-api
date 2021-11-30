@@ -16,6 +16,7 @@
     - [Private API-Key](#private-api-key)
   - [Known Problems and Issues](#known-problems-and-issues)
     - [When i have testnet swagger and mainnet swagger open in the browser the request seems to go to the wrong server ?](#when-i-have-testnet-swagger-and-mainnet-swagger-open-in-the-browser-the-request-seems-to-go-to-the-wrong-server-)
+    - [I am receiving old data or no results ?](#i-am-receiving-old-data-or-no-results-)
 ## A Free Cardano Public API - What can i do with it ?
 Retrieve all Cardano blockchain data, as you could from a local database, but via REST. OData Syntax allows you to get the data you need for your application. Start building your application today, don't deal with infrastructure. It is free to use and we even prepared [example queries](https://github.com/tigrpoolcom/cardano-web-api/blob/main/README.md#nft-use-cases) for you.
 To give you an impression of whats possible in the following you will see possible use-cases we have gathered for you. The API can be freely used by everyone. We offer an api for `testnet` and one for the `mainnet`. API Documentation is done in Swagger, to make it easy to try it out directly.
@@ -272,3 +273,29 @@ https://testnet.cutymals.com/swagger/index.html
 
 Our `mainnet` API is here:
 https://mainnet.cutymals.com/swagger/index.html
+
+### I am receiving old data or no results ?
+Due to maintenance or other unforseen issues it might happen that the sync between the cardano relay node and the network is not 100%.
+To give you the possibility to react to such event we offer the `/api/CardanoSyncStatus` route. With that you can check if the nodes are synced 100%. The syncedTimestamp is in UTC.
+
+Direct Link for `testnet`:
+https://testnet.cutymals.com/api/CardanoSyncStatus?X-API-KEY=ILoveCutyMals
+
+Example Result
+````
+{
+"syncedTimestamp":"2021-30-11T06:57:46",
+"syncedInPercent":99.99999999999999
+}
+````
+
+Direct link for `mainnet`
+https://mainnet.cutymals.com/api/CardanoSyncStatus?X-API-KEY=ILoveCutyMals
+
+Example Result
+````
+{
+"syncedTimestamp":"2021-30-11T07:00:00",
+"syncedInPercent":100.00000000000000
+}
+````
