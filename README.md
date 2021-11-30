@@ -14,6 +14,8 @@
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
     - [Private API-Key](#private-api-key)
+  - [Known Problems and Issues](#known-problems-and-issues)
+    - [When i have testnet swagger and mainnet swagger open in the browser the request seems to go to the wrong server ?](#when-i-have-testnet-swagger-and-mainnet-swagger-open-in-the-browser-the-request-seems-to-go-to-the-wrong-server-)
 ## A Free Cardano Public API - What can i do with it ?
 Retrieve all Cardano blockchain data, as you could from a local database, but via REST. OData Syntax allows you to get the data you need for your application. Start building your application today, don't deal with infrastructure. It is free to use and we even prepared [example queries](https://github.com/tigrpoolcom/cardano-web-api/blob/main/README.md#nft-use-cases) for you.
 To give you an impression of whats possible in the following you will see possible use-cases we have gathered for you. The API can be freely used by everyone. We offer an api for `testnet` and one for the `mainnet`. API Documentation is done in Swagger, to make it easy to try it out directly.
@@ -257,3 +259,15 @@ The Public API-Key is also used for our example queries.
 It will be possible to register a private tokens to connect to the API. This will allow you to call the API more heavily and without interceptions of other users.
 The API-Key will be bound to CutyMal tokens on the Cardano blockchain.
 
+## Known Problems and Issues
+### When i have testnet swagger and mainnet swagger open in the browser the request seems to go to the wrong server ?
+It seems that Swagger cant distinguish between the API of testnet.cutymals.com and mainnet.cutymals.com and saves the target machine (to which it will sent the request to), in a local cache.
+This leads to the issue that a request in the mainnet Swagger can go to the testnet APi, because the cache always holds the last API API you have opened.
+As this is just a caching problem from Swagger, you will only encounter this in local tests.
+You can solve this by pressing `STRG+F5` in the current tab so that Swagger overwrites the target server in your browser cache and the request goes to the right server.
+
+Our `testnet` API is here:
+https://testnet.cutymals.com/swagger/index.html
+
+Our `mainnet` API is here:
+https://mainnet.cutymals.com/swagger/index.html
