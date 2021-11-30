@@ -1,7 +1,7 @@
 
 # Cardano Public API brought you by CutyMals.com
 - [Cardano Public API brought you by CutyMals.com](#cardano-public-api-brought-you-by-cutymalscom)
-  - [What can i do with it ?](#what-can-i-do-with-it-)
+  - [A Free Cardano Public API - What can i do with it ?](#a-free-cardano-public-api---what-can-i-do-with-it-)
   - [What is OData ?](#what-is-odata-)
   - [Trasaction Use-Cases](#trasaction-use-cases)
     - [How to identify sender of transaction?](#how-to-identify-sender-of-transaction)
@@ -14,8 +14,28 @@
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
     - [Private API-Key](#private-api-key)
-## What can i do with it ?
-Retrieve cardano blockchain data in a flexible ODATA Syntax. It allows you to get the data you need for your application with no hassle and maximum flexibility.Start building your application today, don't deal with infrastructure. We prepared examples queries for you. Example Queries
+## A Free Cardano Public API - What can i do with it ?
+Retrieve all Cardano blockchain data, as you could from a local database, but via REST. OData Syntax allows you to get the data you need for your application. Start building your application today, don't deal with infrastructure. It is free to use and we even prepared [example queries](https://github.com/tigrpoolcom/cardano-web-api/blob/main/README.md#nft-use-cases) for you.
+
+To give you an impression of whats possible in the following you will see possible use-cases we have gathered for you. The API can be freely used by everyone. We offer an api for `testnet` and one for the `mainnet`.
+
+API Documentation is done in Swagger, to make it easy to try it out directly.
+If you're new to Swagger you find an introduction to Swagger [here](https://www.youtube.com/watch?v=7MS1Z_1c5CU&list=PLnBvgoOXZNCOiV54qjDOPA9R7DIDazxBA&index=1).
+
+Our Testnet API is here:
+https://testnet.cutymals.com/swagger/index.html
+
+Our Mainnet API is here:
+https://mainnet.cutymals.com/swagger/index.html
+
+
+With a click on the `Authorize` button on the Swagger UI
+Enter in the field `Value:` the public api key `ILoveCutyMals`. 
+Then click on Authorize. Swagger then automatically sends the `X-API-KEY=ILoveCutyMals` header in every request you try out. That makes it very easy to understand what you can do with the API.
+
+## What is OData ?
+OData allows you essentially to access a database as if it's your own.
+
 The Api allows you to:
 - `$filter` results based on predicates like greater than, equals, ...
 - `$count` the number of results for your query
@@ -24,38 +44,13 @@ The Api allows you to:
 - `$top` limit the amount of returned results
 - `$skip` navigate through the returned results
 - `$expand` navigation properties of related tables
-Fast as Lightning directly executed on the database. 
 
-Our API is documented in Swagger:
-- [Swagger API Documentation](https://cutymals.com/swagger/index.html)
+With these options you can adjust the response to your application needs.This reduces preprocessing overhead on your client side and allows direct integration for several types of applications. You can build a Minter, NFT-Showcase page, a game based on Cardano transactions or even run analytics with the data. It's up to you! 
 
-If you're new to swagger you can find an how to here:
-- [Swagger API How To](https://www.youtube.com/watch?v=7MS1Z_1c5CU&list=PLnBvgoOXZNCOiV54qjDOPA9R7DIDazxBA&index=1)
+See the possibilities on the [example queries section](https://github.com/tigrpoolcom/cardano-web-api/blob/main/README.md#nft-use-cases).
 
-With a click on the `Authorize` button on the Swagger UI
-Enter in the field `Value:` the public api key `ILoveCutyMals`. 
-Then click on Authorize. Swagger then automatically sends the `X-API-KEY=ILoveCutyMals` header in every request you try out. That makes it very easy to understand what you can do with the API.
 
-## What is OData ?
-Here are the various parameters that can be used together with API URI in request.
-
-    $expand
-    $filter
-    $inlinecount
-    $orderby
-    $select
-    $skip
-    $top
-
-Here are the examples of some the most used parameter with web API URI.
-
-    http://localhost/api/Employees?$expand=DeptId
-    http://localhost/api/Employees?$filter=Id ge 5 and Price le 15
-    http://localhost/api/Employees?$inlinecount=allpages
-    http://localhost/api/Employees?$orderby=Id desc
-    http://localhost/api/Employees?$select=EmployeeName, Salary
-    http://localhost/api/Employees?$skip=10
-    http://localhost/api/Employees?$top=5
+Further information about ODATA you can find in [Microsoft docs](https://docs.microsoft.com/en-us/odata/concepts/queryoptions-overview).
 
 ## Trasaction Use-Cases
 ### How to identify sender of transaction?
