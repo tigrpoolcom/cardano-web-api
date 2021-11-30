@@ -16,10 +16,7 @@
     - [Private API-Key](#private-api-key)
 ## A Free Cardano Public API - What can i do with it ?
 Retrieve all Cardano blockchain data, as you could from a local database, but via REST. OData Syntax allows you to get the data you need for your application. Start building your application today, don't deal with infrastructure. It is free to use and we even prepared [example queries](https://github.com/tigrpoolcom/cardano-web-api/blob/main/README.md#nft-use-cases) for you.
-
-To give you an impression of whats possible in the following you will see possible use-cases we have gathered for you. The API can be freely used by everyone. We offer an api for `testnet` and one for the `mainnet`.
-
-API Documentation is done in Swagger, to make it easy to try it out directly.
+To give you an impression of whats possible in the following you will see possible use-cases we have gathered for you. The API can be freely used by everyone. We offer an api for `testnet` and one for the `mainnet`. API Documentation is done in Swagger, to make it easy to try it out directly.
 If you're new to Swagger you find an introduction to Swagger [here](https://www.youtube.com/watch?v=7MS1Z_1c5CU&list=PLnBvgoOXZNCOiV54qjDOPA9R7DIDazxBA&index=1).
 
 Our Testnet API is here:
