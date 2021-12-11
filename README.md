@@ -8,8 +8,11 @@
   - [NFT Use-Cases](#nft-use-cases)
     - [Count all SpaceBudz ever minted](#count-all-spacebudz-ever-minted)
     - [Count all Transactions where SpaceBudz were involved](#count-all-transactions-where-spacebudz-were-involved)
-    - [Count all SpaceBudz in existence (amount of tokens)](#count-all-spacebudz-in-existence-amount-of-tokens)
+    - [Count existing SpaceBudz on blockchain = (Total tokens)](#count-existing-spacebudz-on-blockchain--total-tokens)
     - [Contains Search of NFT metadata (Transaction Metadata)](#contains-search-of-nft-metadata-transaction-metadata)
+  - [Integration examples](#integration-examples)
+    - [Javascript fetch number of NFTs in existence](#javascript-fetch-number-of-nfts-in-existence)
+    - [Javascript fetch owner of NFT](#javascript-fetch-owner-of-nft)
   - [API Tokens](#api-tokens)
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
@@ -17,6 +20,7 @@
   - [Known Problems and Issues](#known-problems-and-issues)
     - [When i have testnet swagger and mainnet swagger open in the browser the request seems to go to the wrong server ?](#when-i-have-testnet-swagger-and-mainnet-swagger-open-in-the-browser-the-request-seems-to-go-to-the-wrong-server-)
     - [I am receiving old data or no results ?](#i-am-receiving-old-data-or-no-results-)
+    - [I get a 500 Internal Server error or timeout](#i-get-a-500-internal-server-error-or-timeout)
 ## A Free Cardano Public API - What can i do with it ?
 Retrieve all Cardano blockchain data, as you could from a local database, but via REST. OData Syntax allows you to get the data you need for your application. Start building your application today, don't deal with infrastructure. It is free to use and we even prepared [example queries](https://github.com/tigrpoolcom/cardano-web-api/blob/main/README.md#nft-use-cases) for you.
 To give you an impression of whats possible in the following you will see possible use-cases we have gathered for you. The API can be freely used by everyone. We offer an api for `testnet` and one for the `mainnet`. API Documentation is done in Swagger, to make it easy to try it out directly.
@@ -198,9 +202,52 @@ value	[]
 ```
 We spared us some traffic and just got the count which we now can use to do what we intended to do.
 
-### Count all SpaceBudz in existence (amount of tokens)
-To count all in existence we have to count the amount of spendable SpaceBudz on the Blockchain.
- to be done
+### Count existing SpaceBudz on blockchain = (Total tokens)
+The following query returns all SpaceBuds which are unspent. A token can be minted and destroyed during his lifetime. This does often happen if during the mint phase a token was minted twice, one of the created token is then usually being removed. This is done by a transaction in which the token is being used, without creating a new spendable output.
+
+So with this Query we see the actual amount of existing tokens on the chain. If one is destroyed or created the count will change.
+
+[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true&$top=1)
+```
+https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true&$top=1
+```
+
+Result 
+```
+{
+  "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut",
+  "@odata.count": 10002,
+  "value": [
+    {
+      "Id": 44291,
+      "Policy": "1ea/BQA3jU8NpOjd5r7Ox2Ic2Mv1y7m4cBPUzA==",
+      "PolicyInHex": "d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc",
+      "Name": "U3BhY2VCdWQxMjMw",
+      "NameInHex": "537061636542756431323330",
+      "NameInUtf8": "SpaceBud1230",
+      "Quantity": 1,
+      "TxOutId": 13054498
+    }
+  ]
+}
+```
+The result shows us that at the time of writing 2021-12-11 there are 10002 spendable SpaceBudz in existence. Thats interesting because [Cardanoscan.io](https://cardanoscan.io/tokenPolicy/d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc) tells us that there are 10000 tokens (ignoring the quantity).
+
+We set up a small script which requests the count for every SpaceBud and iterated that in a foor loop. By doing that we get the following entries which shed a light on that.
+
+[SpaceBud1903](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud1903&unspentOnly=true&X-API-KEY=ILoveCutyMals&$count=true)
+[SpaceBud6413](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud6413&unspentOnly=true&X-API-KEY=ILoveCutyMals&$count=true)
+
+```
+SpaceBud1903---{"@odata.context":"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut","@odata.count":2,"value":[]}
+SpaceBud6413---{"@odata.context":"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut","@odata.count":2,"value":[]}
+```
+There are two SpaceBudz in existence which have a quantity of two instead of one.
+Hence the total amount of SpaceBudz at the time of writing this 2021-12-11 is 10002 SpaceBudz.
+
+Blockchain data is so interesting! 😊
+
+
 
 ### Contains Search of NFT metadata (Transaction Metadata)
 Example NFT SpaceBud6206
@@ -218,14 +265,65 @@ Result
 @odata.context	"https://mainnet.cutymals.com/odata/$metadata#TransactionsMetadata"
 value	
 0	
-Id	67784
+Id	68035
 Key	721
 Json	"{\"d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc\": {\"SpaceBud6206\": {\"name\": \"SpaceBud #6206\", \"type\": \"Alien\", \"image\": \"ipfs://QmXjMxYcpeGAfSogZmkw5iPehRt55WaWQmC7ti4LCnL9Do\", \"traits\": [\"Chestplate\", \"Covered Helmet\", \"Eye Patch\", \"Lightsaber\", \"Wool Boots\"], \"arweaveId\": \"JK8ytLq7I25qTbkhBNhQGg-X8QSo_6iGA1tfLN2WAkQ\"}}}"
 Bytes	"oRkC0aF4OGQ1ZTZiZjA1MDAzNzhkNGYwZGE0ZThkZGU2YmVjZWM3NjIxY2Q4Y2JmNWNiYjliODcwMTNkNGNjoWxTcGFjZUJ1ZDYyMDalaWFyd2VhdmVJZHgrSks4eXRMcTdJMjVxVGJraEJOaFFHZy1YOFFTb182aUdBMXRmTE4yV0FrUWVpbWFnZXg1aXBmczovL1FtWGpNeFljcGVHQWZTb2dabWt3NWlQZWhSdDU1V2FXUW1DN3RpNExDbkw5RG9kbmFtZW5TcGFjZUJ1ZCAjNjIwNmZ0cmFpdHOFakNoZXN0cGxhdGVuQ292ZXJlZCBIZWxtZXRpRXllIFBhdGNoakxpZ2h0c2FiZXJqV29vbCBCb290c2R0eXBlZUFsaWVu"
-TxId	5365308
+TxId	5414057
 1	{…}
 2	{…}
 ```
+## Integration examples
+### Javascript fetch number of NFTs in existence
+The following is a codesnippet we use to identify how much tokens are minted already. We use the MATM (MultiAssetTransactionsMint) for that, it would also be possible via the MATO (MultiAssetTransactionsOut) table. We use the MATM because that table is smaller than the MATO table, and has faster response time. Downside of using MATM is that it only gives you the count of MINT transactions for a token, if you burned some or use a quantitiy different from one, you end up having wrong results.
+
+```
+async function GetNumberMinted() {
+  let url = "https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true";
+  return fetch(url ,{method: 'GET', headers: {
+    "Accept": "application/json"
+  }})
+  .then(res =>{if(res.ok) return res.json(); })
+  .then(data => return data['@odata.count']})
+  .catch(err => content = "ERROR");
+}
+```
+1. Get the data from the API
+2. Check if status is OK
+3. Parse to JSON
+4. Select the count value and return it
+
+Note: If you burned tokens or have more than one quantity per Asset, you might want to use the MATO table instead, because it shows you always how much NFTs are in existence.
+
+### Javascript fetch owner of NFT
+
+The following is a codesnippet we use to identify who is the owner the NFT shown on our page.
+You can use that in the same way for your NFT project, to identify the current owner of an NFT.
+
+Note: Thas just a snippet, to show the possibilities. It does not follow any style guide.
+```
+async function FindCurrentOwner()
+  {
+  let url = `https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841&nameInUTF8=${animal.assetName}&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24top=1&%24select=TxOut&%24count=true&%24expand=TxOut`;
+
+  await fetch(url ,{method: 'GET', headers: {
+    "Accept": "application/json"
+  }})
+  .then(res =>{if(res.ok) return res.json(); })
+  .then(data => 
+  {
+      return data.value[0].TxOut.Address; 
+  })
+  .catch(err => content = "ERROR");
+}
+```
+1. Get the data from the API
+2. Check if status is OK
+3. Parse to JSON
+4. Select the first value array, select the address from the TxOut
+5. Return the value
+
+
 
 ## API Tokens 
 ### API Key Headers and API Key Parameter
@@ -301,3 +399,13 @@ Example Result
 "syncedInPercent":100.00000000000000
 }
 ````
+### I get a 500 Internal Server error or timeout
+If a lot of action happens on the blockchain this data is also being written in the underlying database. 
+It can happen from time to time that the database has to reorder some indices, due to a lot of inserts recently.
+E.g. this happens mainly on the MultiAssetTranstionsOutput tables at the moment.
+Best you can do is to retry the query some minutes later.
+
+We are still investigating how we can improve that, without sacrifiying defragmented indexes.
+
+Question not answered ?
+[Contact us on Twitter!](https://twitter.com/CutymalsCom)
