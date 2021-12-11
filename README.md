@@ -405,7 +405,7 @@ It can happen from time to time that the database has to reorder some indices, d
 E.g. this happens mainly on the MultiAssetTranstionsOutput tables at the moment.
 Best you can do is to retry the query some minutes later.
 
-We are still investigating how we can improve that, without sacrifiying defragmented indexes.
+We are still investigating how we can improve that.
 
 Question not answered ?
 [Contact us on Twitter!](https://twitter.com/CutymalsCom)
