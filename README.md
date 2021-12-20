@@ -13,6 +13,8 @@
   - [Integration examples](#integration-examples)
     - [Javascript fetch number of NFTs in existence](#javascript-fetch-number-of-nfts-in-existence)
     - [Javascript fetch owner of NFT](#javascript-fetch-owner-of-nft)
+  - [IPFS Use-Cases](#ipfs-use-cases)
+- [Retrieve a NFT picture from IPFS](#retrieve-a-nft-picture-from-ipfs)
   - [API Tokens](#api-tokens)
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
@@ -323,6 +325,21 @@ async function FindCurrentOwner()
 4. Select the first value array, select the address from the TxOut
 5. Return the value
 
+## IPFS Use-Cases
+# Retrieve a NFT picture from IPFS
+You can retrieve a picture which is stored in IPFS via the following call
+
+
+```
+https://mainnet.cutymals.com/api/Ipfs/GetIpfsFile?ipfsHash=QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr&X-API-KEY=ILoveCutyMals
+```
+replace the `ipfsHash` value with the hash you want to retrieve.
+
+[-> Result](https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals)
+
+*Supported Values*: bmp,gif,ico,jpeg,jpg,png,psd,tiff
+
+*Non-Supported*: Returns 404 for all other values
 
 
 ## API Tokens 
