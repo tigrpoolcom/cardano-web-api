@@ -335,7 +335,7 @@ https://mainnet.cutymals.com/api/Ipfs/GetIpfsFile?ipfsHash=QmTL6PY3sxcGwQz77SQbn
 ```
 replace the `ipfsHash` value with the hash you want to retrieve.
 
-[-> Result](https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals)
+[-> Result](https://mainnet.cutymals.com/api/Ipfs/GetIpfsFile?ipfsHash=QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr&X-API-KEY=ILoveCutyMals)
 
 *Supported Values*: bmp,gif,ico,jpeg,jpg,png,psd,tiff
 
