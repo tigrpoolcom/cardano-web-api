@@ -6,9 +6,10 @@
   - [Trasaction Use-Cases](#trasaction-use-cases)
     - [How to identify sender of transaction?](#how-to-identify-sender-of-transaction)
   - [NFT Use-Cases](#nft-use-cases)
-    - [Count all SpaceBudz ever minted](#count-all-spacebudz-ever-minted)
+    - [Count mint events of a NFT (e.g. SpaceBud)](#count-mint-events-of-a-nft-eg-spacebud)
+      - [What is a mint event ?](#what-is-a-mint-event-)
     - [Count all Transactions where SpaceBudz were involved](#count-all-transactions-where-spacebudz-were-involved)
-    - [Count existing SpaceBudz on blockchain = (Total tokens)](#count-existing-spacebudz-on-blockchain--total-tokens)
+    - [Count existing quantity of NFTs (e.g. total SpaceBuds in existence)](#count-existing-quantity-of-nfts-eg-total-spacebuds-in-existence)
     - [Contains Search of NFT metadata (Transaction Metadata)](#contains-search-of-nft-metadata-transaction-metadata)
   - [Integration examples](#integration-examples)
     - [Javascript fetch number of NFTs in existence](#javascript-fetch-number-of-nfts-in-existence)
@@ -60,7 +61,7 @@ Further information about ODATA you can find in [Microsoft docs](https://docs.mi
 
 ## Trasaction Use-Cases
 ### How to identify sender of transaction?
-Assuming you have the following UTXO view and want to know which address did sent that amount.
+Assuming you have the following UTXO view and you want to know which address has sent the `17622402 lovelace`.
 |TxHash|TxIx|Amount|
 |------|----|------|
 |253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055|0|17622402 lovelace|
@@ -133,7 +134,14 @@ With that query it's now super easy to just consume that in javascript and to re
 
 
 ## NFT Use-Cases
-### Count all SpaceBudz ever minted
+### Count mint events of a NFT (e.g. SpaceBud)
+#### What is a mint event ?
+Every NFT or Token is brought to live by a mint event. That means a transaction which can be created by the policy owner (creator).
+- A token can be burned (e.g. mint quantiy <= -1)
+- A token can be minted (e.g mint quantity >= +1)
+
+The following shows how to read such mint events through the `/odata/MultiAssetTransactionsMint` endpoint.
+
 [-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
 ```
 https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
@@ -204,14 +212,19 @@ value	[]
 ```
 We spared us some traffic and just got the count which we now can use to do what we intended to do.
 
-### Count existing SpaceBudz on blockchain = (Total tokens)
+### Count existing quantity of NFTs (e.g. total SpaceBuds in existence)
 The following query returns all SpaceBuds which are unspent. A token can be minted and destroyed during his lifetime. This does often happen if during the mint phase a token was minted twice, one of the created token is then usually being removed. This is done by a transaction in which the token is being used, without creating a new spendable output.
 
 So with this Query we see the actual amount of existing tokens on the chain. If one is destroyed or created the count will change.
 
-[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true&$top=1)
+Hint: The MultiTransactionsOut table is the largest table on the cardano blockchain with more than 100 million entries. Using `unspent=true` will compare entries on the MultiTransactionsOut table with the MultiTransactionsIn table (second largest table).
+If the requests takes more than 60 seconds, it's canceled.
+Try one minute later.
+
+
+[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true)
 ```
-https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true&$top=1
+https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true
 ```
 
 Result 
@@ -229,7 +242,7 @@ Result
       "NameInUtf8": "SpaceBud1230",
       "Quantity": 1,
       "TxOutId": 13054498
-    }
+    }, ...
   ]
 }
 ```
@@ -237,19 +250,20 @@ The result shows us that at the time of writing 2021-12-11 there are 10002 spend
 
 We set up a small script which requests the count for every SpaceBud and iterated that in a foor loop. By doing that we get the following entries which shed a light on that.
 
-[SpaceBud1903](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud1903&unspentOnly=true&X-API-KEY=ILoveCutyMals&$count=true)
-[SpaceBud6413](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8Contains=SpaceBud6413&unspentOnly=true&X-API-KEY=ILoveCutyMals&$count=true)
+[SpaceBud1903](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8=SpaceBud1903&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true)
+
+[SpaceBud6413](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&nameInUTF8=SpaceBud6413&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true)
 
 ```
-SpaceBud1903---{"@odata.context":"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut","@odata.count":2,"value":[]}
-SpaceBud6413---{"@odata.context":"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut","@odata.count":2,"value":[]}
+SpaceBud1903
+{"@odata.context":"https://...", "@odata.count":2,"value":[...]}
+
+SpaceBud6413
+{"@odata.context":"https://...", "@odata.count":2,"value":[...]}
 ```
-There are two SpaceBudz in existence which have a quantity of two instead of one.
-Hence the total amount of SpaceBudz at the time of writing this 2021-12-11 is 10002 SpaceBudz.
+There are two SpaceBudz in existence which have a quantity of two.Hence the total amount of SpaceBudz at the time of writing this 2021-12-11 is 10002 SpaceBudz.
 
-Blockchain data is so interesting! 😊
-
-
+Blockchain data is interesting! 😊
 
 ### Contains Search of NFT metadata (Transaction Metadata)
 Example NFT SpaceBud6206
