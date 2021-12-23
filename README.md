@@ -340,7 +340,7 @@ async function FindCurrentOwner()
 5. Return the value
 
 ## IPFS Use-Cases
-# Retrieve a NFT picture from IPFS
+### Retrieve a NFT picture from IPFS
 You can retrieve a picture which is stored in IPFS via the following call
 
 
