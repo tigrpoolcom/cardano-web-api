@@ -15,7 +15,7 @@
     - [Javascript fetch number of NFTs in existence](#javascript-fetch-number-of-nfts-in-existence)
     - [Javascript fetch owner of NFT](#javascript-fetch-owner-of-nft)
   - [IPFS Use-Cases](#ipfs-use-cases)
-- [Retrieve a NFT picture from IPFS](#retrieve-a-nft-picture-from-ipfs)
+    - [Retrieve a NFT picture from IPFS](#retrieve-a-nft-picture-from-ipfs)
   - [API Tokens](#api-tokens)
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
