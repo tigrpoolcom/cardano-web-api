@@ -225,13 +225,11 @@ Result
   "value": [
     {
       "Id": 44291,
-      "Policy": "1ea/BQA3jU8NpOjd5r7Ox2Ic2Mv1y7m4cBPUzA==",
-      "PolicyInHex": "d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc",
-      "Name": "U3BhY2VCdWQxMjMw",
-      "NameInHex": "537061636542756431323330",
+      "Policy": "d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc",
+      "Name": "537061636542756431323330",
       "NameInUtf8": "SpaceBud1230",
       "Quantity": 1,
-      "TxOutId": 13054498
+      "TxOutId": 12945321
     }, ...
   ]
 }
