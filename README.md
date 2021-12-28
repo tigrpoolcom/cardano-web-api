@@ -202,8 +202,8 @@ value	[]
 ```
 Query Explained:
 - policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc (the Policy which is being filtered for)
-- $top=0 [%24top=0] (limit to zero results, return no content.Useful if you just want to know the count)
-- $count=true [%24count=true] (count all results for my query)
+- $top=0 [%24top=0] (limit to zero results, if only count is relevant, data has not to be sent)
+- $count=true [%24count=true] (count all results, shown as @odata.count)
 
 ### Count existing quantity of NFTs (e.g. total SpaceBuds in existence)
 The following query returns all SpaceBuds which are unspent. A token can be minted and destroyed during his lifetime. This does often happen if during the mint phase a token was minted twice, one of the created token is then usually being removed. This is done by a transaction in which the token is being used, without creating a new spendable output.
