@@ -136,28 +136,37 @@ The following shows how to read such mint events through the `/odata/MultiAssetT
 [https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true](https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
 
 ```
-@odata.context	"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsMint"
-@odata.count	10174
-value	
-0	
-Id	1285
-Policy	"1ea/BQA3jU8NpOjd5r7Ox2Ic2Mv1y7m4cBPUzA=="
-PolicyInHex	"d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc"
-Name	"U3BhY2VCdWQ2MjA2"
-NameInHex	"537061636542756436323036"
-NameInUtf8	"SpaceBud6206"
-Quantity	1
-TxId	5365308
-1	{…}
-2	{…}
-3	{…}
-4	{…}
-5	{…}
-6	{…}
-7	{…}
-8	{…}
-9	{…}
-@odata.nextLink	"https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-1296"
+{
+  "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsMint",
+  "@odata.count": 10174,
+  "value": [
+    {
+      "Id": 1285,
+      "Policy": "d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc",
+      "Name": "537061636542756436323036",
+      "NameInUtf8": "SpaceBud6206",
+      "Quantity": 1,
+      "TxId": 5365308
+    },
+    {1},
+    {2},
+    {3},
+    {4},
+    {5},
+    {6},
+    {7},
+    {8},
+    {
+      "Id": 1296,
+      "Policy": "d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc",
+      "Name": "537061636542756434363333",
+      "NameInUtf8": "SpaceBud4633",
+      "Quantity": 1,
+      "TxId": 5367440
+    }
+  ],
+  "@odata.nextLink": "https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyinhex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&x-api-key=ILoveCutyMals&$count=true&$skiptoken=Id-1296"
+}
 ```
 You will see that the count is greater than 10000 pcs. The reason for that is that the MultiAssetTransactionsMint API shows you all mints that took place. On Cardano you can mint and burn tokens, but each is a mint event.
 If you mint 150 tokens, then burn 50 tokens (each of those in one transaction) you will then see 200 mint transaction.
@@ -191,7 +200,10 @@ We get the data returned together with the @odata.count which is the amount of u
 @odata.count	998869
 value	[]
 ```
-We spared us some traffic and just got the count which we now can use to do what we intended to do.
+Query Explained:
+- policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc (the Policy which is being filtered for)
+- $top=0 [%24top=0] (limit to zero results, return no content.Useful if you just want to know the count)
+- $count=true [%24count=true] (count all results for my query)
 
 ### Count existing quantity of NFTs (e.g. total SpaceBuds in existence)
 The following query returns all SpaceBuds which are unspent. A token can be minted and destroyed during his lifetime. This does often happen if during the mint phase a token was minted twice, one of the created token is then usually being removed. This is done by a transaction in which the token is being used, without creating a new spendable output.
