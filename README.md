@@ -16,6 +16,7 @@
     - [Javascript fetch owner of NFT](#javascript-fetch-owner-of-nft)
   - [IPFS Use-Cases](#ipfs-use-cases)
     - [Retrieve a NFT picture from IPFS](#retrieve-a-nft-picture-from-ipfs)
+    - [Embed NFT from IPFS in social media](#embed-nft-from-ipfs-in-social-media)
   - [API Tokens](#api-tokens)
     - [API Key Headers and API Key Parameter](#api-key-headers-and-api-key-parameter)
     - [Public API-Key](#public-api-key)
@@ -68,11 +69,8 @@ Assuming you have the following UTXO view and you want to know which address has
 
 To identify the sender we take a look at the TransactionOut APIs. Every Output once in a time will be a input. While the input table on the cardano blockchain is just a link-table with ids, the output table contains also substantial information.
 
-[-> Result](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals)
-```
-https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals
-```
-Result (shortened)
+[https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals)
+
 ```
   "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#TransactionsOut",
   "value": [
@@ -93,11 +91,8 @@ We now got returned two Transactions as both were used as input for the Transact
 
 As we are just interested in the Address of the sender we will use `$select=Address` to just get returned the Address.
 
-[-> Result](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address)
-```
-https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address
-```
-Result
+[https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24select=Address)
+
 ```
   "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#TransactionsOut(Address)",
   "value": [
@@ -116,11 +111,7 @@ If a Transaction is just from one wallet (very likely to happen on every manual 
 
 To do that we will optimize the query and add a `$top=1`, so we just get returned the ffirst result.
 
-[-> Result](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address)
-```
-https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address
-```
-Result
+[https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address](https://mainnet.cutymals.com/odata/TransactionsOut?txHashInHex=253e233a6b262aed75fce1819903f8d56cd31b23d56e204717424451cc287055&includeTxSender=true&includeTxReceiver=false&X-API-KEY=ILoveCutyMals&%24top=1&%24select=Address)
 ```
  "@odata.context": "https://mainnet.cutymals.com/odata/$metadata#TransactionsOut(Address)",
   "value": [
@@ -142,11 +133,8 @@ Every NFT or Token is brought to live by a mint event. That means a transaction 
 
 The following shows how to read such mint events through the `/odata/MultiAssetTransactionsMint` endpoint.
 
-[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
-```
-https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
-```
-Result
+[https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true](https://mainnet.cutymals.com/odata/MultiAssetTransactionsMint?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
+
 ```
 @odata.context	"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsMint"
 @odata.count	10174
@@ -177,10 +165,7 @@ If you mint 150 tokens, then burn 50 tokens (each of those in one transaction) y
 If you instead want to know the existing circulation read the next.
 
 ### Count all Transactions where SpaceBudz were involved
-[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
-```
-https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true
-```
+[https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24count=true)
 Result
 ```
 @odata.context	"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut"
@@ -200,11 +185,7 @@ value
 ```
 We get the data returned together with the @odata.count which is the amount of unique elements for our query. If we ar just interested in the number, we can adjust the query with the parameter $top=0 to return no values.
 
-[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true)
-```
-https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true
-```
-Result
+[https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&X-API-KEY=ILoveCutyMals&%24top=0&%24count=true)
 ```
 @odata.context	"https://mainnet.cutymals.com/odata/$metadata#MultiAssetTransactionsOut"
 @odata.count	998869
@@ -222,10 +203,7 @@ If the requests takes more than 60 seconds, it's canceled.
 Try one minute later.
 
 
-[-> Result](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true)
-```
-https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true
-```
+[https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true](https://mainnet.cutymals.com/odata/MultiAssetTransactionsOut?policyInHex=d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc&unspentOnly=true&X-API-KEY=ILoveCutyMals&%24count=true)
 
 Result 
 ```
@@ -272,11 +250,9 @@ Example NFT SpaceBud6206
 ```
 We offer you the ability to search the JSON string within the database with a contains search. That means whatever you put into the `searchInMetadata=` parameter will be searched within the Json.
 
-[-> Result](https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals)
-```
-https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals
-```
-Result 
+[https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals](https://mainnet.cutymals.com/odata/TransactionsMetadata?searchInMetadata=SpaceBud6206&X-API-KEY=ILoveCutyMals)
+
+ 
 ```
 @odata.context	"https://mainnet.cutymals.com/odata/$metadata#TransactionsMetadata"
 value	
@@ -343,13 +319,28 @@ async function FindCurrentOwner()
 ### Retrieve a NFT picture from IPFS
 You can retrieve a picture which is stored in IPFS via the following call
 
+[https://mainnet.cutymals.com/api/Ipfs/QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr?X-API-KEY=ILoveCutyMals](https://mainnet.cutymals.com/api/Ipfs/QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr?X-API-KEY=ILoveCutyMals)
 
-```
-https://mainnet.cutymals.com/api/Ipfs/GetIpfsFile?ipfsHash=QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr&X-API-KEY=ILoveCutyMals
-```
-replace the `ipfsHash` value with the hash you want to retrieve.
+Parameters Explained:
+- ipfsHash=QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr (the IPFS file which will be retrieved, replace with your IPFS file)
+- Returns image via FileStream
 
-[-> Result](https://mainnet.cutymals.com/api/Ipfs/GetIpfsFile/QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr?X-API-KEY=ILoveCutyMals)
+*Supported Values*: bmp,gif,ico,jpeg,jpg,png,psd,tiff
+
+*Non-Supported*: Returns 404 for all other values
+
+### Embed NFT from IPFS in social media
+If a picture is shared in social media a preview thumnail is generated. This is done via open graph meta tags.
+
+The following call returns the IPFS image embedded into HTML and includes this meta tags.
+
+[https://mainnet.cutymals.com/api/Ipfs/Share/QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr](https://mainnet.cutymals.com/api/Ipfs/Share/QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr)
+
+Parameters Explained:
+- ipfsHash=QmTL6PY3sxcGwQz77SQbnx1YFnNtaPM2XzrpuX6Z2eRBHr (the IPFS file which will be retrieved, replace with your IPFS file)
+- No API Key is necessary for the /api/Ipfs/Share endpoint
+- Returns image embedded into HTML
+
 
 *Supported Values*: bmp,gif,ico,jpeg,jpg,png,psd,tiff
 
