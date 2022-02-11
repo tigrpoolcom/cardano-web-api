@@ -11,6 +11,8 @@
     - [Count all Transactions where SpaceBudz were involved](#count-all-transactions-where-spacebudz-were-involved)
     - [Count existing quantity of NFTs (e.g. total SpaceBuds in existence)](#count-existing-quantity-of-nfts-eg-total-spacebuds-in-existence)
     - [Contains Search of NFT metadata (Transaction Metadata)](#contains-search-of-nft-metadata-transaction-metadata)
+  - [NFT Volume Data](#nft-volume-data)
+    - [Retrieve the NFT Volume data from Cardano Blockchain](#retrieve-the-nft-volume-data-from-cardano-blockchain)
   - [Integration examples](#integration-examples)
     - [Javascript fetch number of NFTs in existence](#javascript-fetch-number-of-nfts-in-existence)
     - [Javascript fetch owner of NFT](#javascript-fetch-owner-of-nft)
@@ -279,6 +281,56 @@ We offer you the ability to search the JSON string within the database with a co
   ]
 }
 ```
+## NFT Volume Data 
+### Retrieve the NFT Volume data from Cardano Blockchain 
+It's possible to retreive the NFT Volume based on sent transactions from the API.
+
+
+
+|Type|Name|Description |Example|
+|---|---|---|---|
+|Route|`api/Reports/{policyID}` | The Endpoint | api/Reports/b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841
+|Parameter| {policyId}|The PolicyId for which the report is requested| b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841
+|Parameter (List)|tSpan | Timespan in which you want the Data (Days:Hours:Minutes:Seconds) | tSpan=60:00:05:00&tSpan=30:00:05:00&tSpan=07:00:15:00&tSpan=00:24:00:00&tSpan=00:00:06:00
+
+Route `api/Reports/{policyID}`
+Parameter: `tSp
+
+
+[https://mainnet.cutymals.com/api/Reports/b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841?tSpan=60%3A00%3A05%3A00&tSpan=30%3A00%3A05%3A00&tSpan=07%3A00%3A15%3A00&tSpan=00%3A24%3A00%3A00&tSpan=00%3A00%3A06%3A00&X-API-KEY=ILoveCutyMals](https://mainnet.cutymals.com/api/Reports/b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841?tSpan=60%3A00%3A05%3A00&tSpan=30%3A00%3A05%3A00&tSpan=07%3A00%3A15%3A00&tSpan=00%3A24%3A00%3A00&tSpan=00%3A00%3A06%3A00&X-API-KEY=ILoveCutyMals)
+
+ 
+```
+{
+  "PolicyId": "b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841",
+  "ReportDate": "2022-02-11T14:18:50.9200008+00:00",
+  "TimeSpans": [
+    {
+      "TimeSpan": "60.00:05:00",
+      "VolumeLoveLace": 549848494910531800,
+      "VolumeNFTs": 621754
+    },
+    {
+      "TimeSpan": "30.00:05:00",
+      "VolumeLoveLace": 485133365140004860,
+      "VolumeNFTs": 470175
+    },
+    {
+      "TimeSpan": "7.00:15:00",
+      "VolumeLoveLace": 71902742269153190,
+      "VolumeNFTs": 69971
+    },
+    {
+      "TimeSpan": "00:06:00",
+      "VolumeLoveLace": 0,
+      "VolumeNFTs": 0
+    }
+  ]
+}
+```
+
+`VolumeLoveLace` is the amount of ADA in Lovelace which sent with the NFT to another wallet
+`VolumeNFTs` is the amount of NFTS in their Quantity which were sent to another wallet
 ## Integration examples
 ### Javascript fetch number of NFTs in existence
 The following is a codesnippet we use to identify how much tokens are minted already. We use the MATM (MultiAssetTransactionsMint) for that, it would also be possible via the MATO (MultiAssetTransactionsOut) table. We use the MATM because that table is smaller than the MATO table, and has faster response time. Downside of using MATM is that it only gives you the count of MINT transactions for a token, if you burned some or use a quantitiy different from one, you end up having wrong results.
@@ -328,6 +380,8 @@ async function FindCurrentOwner()
 3. Parse to JSON
 4. Select the first value array, select the address from the TxOut
 5. Return the value
+
+
 
 ## IPFS Use-Cases
 ### Retrieve a NFT picture from IPFS
